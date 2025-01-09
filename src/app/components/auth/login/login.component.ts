@@ -40,7 +40,6 @@ export class LoginComponent {
         });
         if (res.data?.token) {
           this.authService.saveToken(res.data.token);
-          // localStorage.setItem('token', res.data.token);
         }
         if (res.succeeded) {
           this.router.navigate(['/employees']);

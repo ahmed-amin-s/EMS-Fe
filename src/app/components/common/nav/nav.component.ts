@@ -13,15 +13,12 @@ export class NavComponent {
   constructor(private router: Router, private authService: AuthService) {
     if (localStorage.getItem('token')) {
       this.authService.isLoggedIn$.subscribe((status) => {
-        this.isLoggedIn = status; // Update UI based on login state
+        this.isLoggedIn = status;
       });
     }
   }
   logout() {
-    // this.isLoggedIn = false;
-    this.authService.logout(); // Clear token and update state
-
-    // localStorage.removeItem('token');
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 }

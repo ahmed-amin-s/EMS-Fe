@@ -31,12 +31,12 @@ export class AuthService {
 
   saveToken(token: string): void {
     localStorage.setItem('token', token);
-    this.isLoggedInSubject.next(true); // Update the login state
+    this.isLoggedInSubject.next(true);
   }
 
   logout(): void {
     localStorage.removeItem('token');
-    this.isLoggedInSubject.next(false); // Update the login state
+    this.isLoggedInSubject.next(false);
   }
 
   get isLoggedIn(): boolean {
