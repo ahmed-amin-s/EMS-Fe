@@ -1,0 +1,52 @@
+<!-- <h2 mat-dialog-title>Manage Department</h2>
+<div mat-dialog-content>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group mb-3">
+      <label for="departmentName">Department Name</label>
+      <input
+        id="departmentName"
+        [(ngModel)]="department.name"
+        name="name"
+        required
+        class="form-control"
+      />
+    </div>
+    <button type="submit" mat-raised-button color="primary">Save</button>
+  </form>
+</div> -->
+<h2 mat-dialog-title>Manage Department</h2>
+<div mat-dialog-content>
+  <form [formGroup]="departmentForm" (ngSubmit)="onSubmit()">
+    <div class="form-group mb-3">
+      <label for="departmentName">Department Name</label>
+      <input
+        id="departmentName"
+        formControlName="name"
+        class="form-control"
+        [ngClass]="{
+          'is-invalid':
+            departmentForm.get('name')?.invalid &&
+            departmentForm.get('name')?.touched
+        }"
+      />
+      <div
+        *ngIf="
+          departmentForm.get('name')?.invalid &&
+          departmentForm.get('name')?.touched
+        "
+        class="error-message"
+      >
+        <small class="text-danger"> Department name is required. </small>
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+      [disabled]="departmentForm.invalid"
+    >
+      Save
+    </button>
+  </form>
+</div>

@@ -1,0 +1,115 @@
+<div class="container">
+  <h2>Add Employee</h2>
+  <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input
+        id="name"
+        formControlName="name"
+        type="text"
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          employeeForm.get('name')?.invalid && employeeForm.get('name')?.touched
+        "
+      >
+        <small class="text-danger"> Name is required. </small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="salary">Salary</label>
+      <input
+        id="salary"
+        formControlName="salary"
+        type="number"
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          employeeForm.get('salary')?.invalid &&
+          employeeForm.get('salary')?.touched
+        "
+      >
+        <small class="text-danger"> Salary must be a positive number. </small>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="joiningDate">Joining Date</label>
+      <input
+        id="joiningDate"
+        formControlName="joiningDate"
+        type="date"
+        class="form-control"
+      />
+      <div
+        *ngIf="
+          employeeForm.get('joiningDate')?.invalid &&
+          employeeForm.get('joiningDate')?.touched
+        "
+      >
+        <small class="text-danger"> Joining date is required. </small>
+      </div>
+    </div>
+
+    <div class="form-group d-flex align-items-end">
+      <div class="w-100 me-3">
+        <label for="position">Position</label>
+        <mat-select
+          formControlName="positionId"
+          id="position"
+          class="form-control"
+        >
+          <mat-option *ngFor="let position of positions" [value]="position.id">
+            {{ position.name }}
+          </mat-option>
+        </mat-select>
+      </div>
+      <button
+        type="button"
+        mat-raised-button
+        color="primary"
+        (click)="openPositionDialog()"
+      >
+        +
+      </button>
+    </div>
+
+    <div class="form-group d-flex align-items-end">
+      <div class="w-100 me-3">
+        <label for="department">Department</label>
+        <mat-select
+          formControlName="departmentId"
+          id="department"
+          class="form-control"
+        >
+          <mat-option
+            *ngFor="let department of departments"
+            [value]="department.id"
+          >
+            {{ department.name }}
+          </mat-option>
+        </mat-select>
+      </div>
+      <button
+        type="button"
+        mat-raised-button
+        color="primary"
+        (click)="openDepartmentDialog()"
+      >
+        +
+      </button>
+    </div>
+
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+      [disabled]="employeeForm.invalid"
+    >
+      Submit
+    </button>
+  </form>
+</div>

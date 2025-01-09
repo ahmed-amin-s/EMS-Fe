@@ -1,0 +1,115 @@
+<div class="h-100vh d-flex justify-content-center align-items-center">
+  <div>
+    <h2>Register</h2>
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="onSubmit()"
+      class="register-form"
+    >
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Phone Number</mat-label>
+          <input
+            matInput
+            id="phoneNumber"
+            formControlName="phoneNumber"
+            type="text"
+          />
+          <mat-error
+            *ngIf="
+              registerForm.get('phoneNumber')?.invalid &&
+              registerForm.get('phoneNumber')?.touched
+            "
+          >
+            Phone Number is required.
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput id="email" formControlName="email" type="text" />
+          <mat-error
+            *ngIf="
+              registerForm.get('email')?.invalid &&
+              registerForm.get('email')?.touched
+            "
+          >
+            Email is required.
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Password</mat-label>
+          <input
+            matInput
+            id="password"
+            formControlName="password"
+            [type]="hidePassword ? 'password' : 'text'"
+          />
+          <button
+            type="button"
+            mat-raised-button
+            (click)="togglePasswordVisibility()"
+            class="eye-icon"
+          >
+            <span *ngIf="!hidePassword">hide</span>
+            <span *ngIf="hidePassword">show</span>
+          </button>
+
+          <mat-error
+            *ngIf="
+              registerForm.get('password')?.invalid &&
+              registerForm.get('password')?.touched
+            "
+          >
+            <span *ngIf="registerForm.get('password')?.hasError('required')">
+              Password is required.
+            </span>
+
+            <!-- <small class="text-danger"> Password is required. </small> -->
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="registerForm.invalid"
+        >
+          Register
+        </button>
+      </div>
+      <div>
+        Have Account?
+        <button mat-raised-button type="button" routerLink="/login">
+          Login
+        </button>
+      </div>
+    </form>
+
+    <div *ngIf="responseMessage" class="response-message">
+      {{ responseMessage }}
+    </div>
+    <div
+      *ngIf="
+        registerForm.get('password')?.invalid &&
+        registerForm.get('password')?.touched &&
+        registerForm.get('password')?.hasError('passwordStrength')
+      "
+    >
+      Password must contain
+      <ul>
+        <li>at least one uppercase letter,</li>
+        <li>one lowercase letter</li>
+        <li>one digit</li>
+        <li>one special character</li>
+        <li>at least 5 characters long</li>
+      </ul>
+    </div>
+  </div>
+</div>

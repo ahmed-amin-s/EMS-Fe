@@ -1,0 +1,30 @@
+<div *ngIf="!employee" class="container">Loading...</div>
+-->
+<div class="container p-5" *ngIf="employee">
+  <mat-card class="employee-card">
+    <mat-card-header>
+      <mat-card-title>Employee Details</mat-card-title>
+      <mat-card-subtitle class="my-4"
+        ><strong>Name:</strong> {{ employee.name }}</mat-card-subtitle
+      >
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="employee-info">
+        <p><strong>Position:</strong> {{ employee.positionName }}</p>
+        <p><strong>Department:</strong> {{ employee.departmentName }}</p>
+        <p><strong>Salary:</strong> {{ employee.salary | currency }}</p>
+        <p><strong>Joining Date:</strong> {{ employee.joiningDate | date }}</p>
+      </div>
+    </mat-card-content>
+
+    <div class="actions">
+      <button mat-raised-button routerLink="/update-employee/{{ employee.id }}">
+        Edit
+      </button>
+      <button mat-button color="warn" (click)="deleteEmployee(employee.id)">
+        Delete
+      </button>
+    </div>
+  </mat-card>
+</div>
