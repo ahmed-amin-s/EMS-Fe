@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./all-employees.component.css'],
 })
 export class AllEmployeesComponent implements OnInit {
-  employees: EmployeeDto[] = [];
   displayedColumns: string[] = [
     'id',
     'name',
@@ -48,7 +47,7 @@ export class AllEmployeesComponent implements OnInit {
       (res) => {
         this.dataSource.data = res.data;
 
-        if (this.employees.length == 0) {
+        if (res.data.length == 0) {
           this.snackBar.open('There Is No Employees, Please Add One!', '', {
             duration: 3000,
           });
