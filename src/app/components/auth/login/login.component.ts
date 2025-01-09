@@ -39,7 +39,8 @@ export class LoginComponent {
           duration: 3000,
         });
         if (res.data?.token) {
-          localStorage.setItem('token', res.data.token);
+          this.authService.saveToken(res.data.token);
+          // localStorage.setItem('token', res.data.token);
         }
         if (res.succeeded) {
           this.router.navigate(['/employees']);

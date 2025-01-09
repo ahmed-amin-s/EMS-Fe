@@ -15,6 +15,9 @@
           >Employees</a
         >
       </li>
+      <li *ngIf="isLoggedIn" class="ms-5">
+        <a mat-raised-button (click)="logout()">Logout</a>
+      </li>
     </ul>
   </div>
 </nav>

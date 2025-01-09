@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiResponse } from '../dto/common/api-response';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -12,6 +12,11 @@ import { LoginDto } from '../dto/auth/login-dto';
 export class AuthService {
   apiUrl: string = `${environment.APIUrl}api/User`;
 
+  private isLoggedInSubject = new BehaviorSubject<boolean>(
+    !!localStorage.getItem('token')
+  );
+  isLoggedIn$ = this.isLoggedInSubject.asObservable();
+
   constructor(private httpClient: HttpClient = inject(HttpClient)) {}
 
   register(obj: RegisterDto): Observable<ApiResponse<any>> {
@@ -22,5 +27,19 @@ export class AuthService {
   }
   login(obj: LoginDto): Observable<ApiResponse<any>> {
     return this.httpClient.post<ApiResponse<any>>(`${this.apiUrl}/login`, obj);
+  }
+
+  saveToken(token: string): void {
+    localStorage.setItem('token', token);
+    this.isLoggedInSubject.next(true); // Update the login state
+  }
+
+  logout(): void {
+    localStorage.removeItem('token');
+    this.isLoggedInSubject.next(false); // Update the login state
+  }
+
+  get isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
   }
 }

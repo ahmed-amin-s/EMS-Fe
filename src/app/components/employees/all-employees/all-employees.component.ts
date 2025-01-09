@@ -40,9 +40,6 @@ export class AllEmployeesComponent implements OnInit {
   }
 
   ngOnInit() {
-    if (!localStorage.getItem('token')) {
-      this.router.navigate(['/register']);
-    }
     this.getAllEmployees();
   }
 
